@@ -1,0 +1,118 @@
+{
+  "jumpscare": {
+    "subtitle": "subtitles.thewatcher.jumpscare",
+    "sounds": [
+      "thewatcher:jumpscare"
+    ]
+  },
+  "watcher.scream": {
+    "subtitle": "subtitles.thewatcher.watcher.scream",
+    "sounds": [
+      "thewatcher:watcher_scream1",
+      "thewatcher:watcher_scream2"
+    ]
+  },
+  "distant_scream": {
+    "subtitle": "subtitles.thewatcher.distant_scream",
+    "sounds": [
+      {
+        "name": "thewatcher:distant_scream",
+        "stream": true
+      }
+    ]
+  },
+  "whisper": {
+    "subtitle": "subtitles.thewatcher.whisper",
+    "sounds": [
+      "thewatcher:whisper1",
+      "thewatcher:whisper2",
+      "thewatcher:whisper3"
+    ]
+  },
+  "breathing": {
+    "subtitle": "subtitles.thewatcher.breathing",
+    "sounds": [
+      "thewatcher:breathing"
+    ]
+  },
+  "heartbeat": {
+    "subtitle": "subtitles.thewatcher.heartbeat",
+    "sounds": [
+      "thewatcher:heartbeat"
+    ]
+  },
+  "static": {
+    "subtitle": "subtitles.thewatcher.static",
+    "sounds": [
+      "thewatcher:static"
+    ]
+  },
+  "glitch": {
+    "subtitle": "subtitles.thewatcher.glitch",
+    "sounds": [
+      "thewatcher:glitch"
+    ]
+  },
+  "tick": {
+    "subtitle": "subtitles.thewatcher.tick",
+    "sounds": [
+      "thewatcher:tick"
+    ]
+  },
+  "knock": {
+    "subtitle": "subtitles.thewatcher.knock",
+    "sounds": [
+      "thewatcher:knock"
+    ]
+  },
+  "crawler.skitter": {
+    "subtitle": "subtitles.thewatcher.crawler.skitter",
+    "sounds": [
+      "thewatcher:crawler_skitter1",
+      "thewatcher:crawler_skitter2"
+    ]
+  },
+  "crawler.chitter": {
+    "subtitle": "subtitles.thewatcher.crawler.chitter",
+    "sounds": [
+      "thewatcher:crawler_chitter"
+    ]
+  },
+  "hound.growl": {
+    "subtitle": "subtitles.thewatcher.hound.growl",
+    "sounds": [
+      "thewatcher:hound_growl1",
+      "thewatcher:hound_growl2"
+    ]
+  },
+  "hound.howl": {
+    "subtitle": "subtitles.thewatcher.hound.howl",
+    "sounds": [
+      {
+        "name": "thewatcher:hound_howl",
+        "stream": true
+      }
+    ]
+  },
+  "faceless.hum": {
+    "subtitle": "subtitles.thewatcher.faceless.hum",
+    "sounds": [
+      "thewatcher:faceless_hum"
+    ]
+  },
+  "drone": {
+    "subtitle": "subtitles.thewatcher.drone",
+    "sounds": [
+      {
+        "name": "thewatcher:drone",
+        "stream": true
+      }
+    ]
+  },
+  "bone_crack": {
+    "subtitle": "subtitles.thewatcher.bone_crack",
+    "sounds": [
+      "thewatcher:bone_crack"
+    ]
+  }
+}

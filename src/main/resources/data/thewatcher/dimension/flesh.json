@@ -1,0 +1,42 @@
+{
+  "type": "thewatcher:flesh",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "thewatcher:flesh",
+      "lakes": false,
+      "features": false,
+      "structure_overrides": [],
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        },
+        {
+          "block": "minecraft:red_terracotta",
+          "height": 9
+        },
+        {
+          "block": "minecraft:nether_wart_block",
+          "height": 1
+        },
+        {
+          "block": "minecraft:air",
+          "height": 12
+        },
+        {
+          "block": "minecraft:nether_wart_block",
+          "height": 2
+        },
+        {
+          "block": "minecraft:red_terracotta",
+          "height": 2
+        },
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        }
+      ]
+    }
+  }
+}

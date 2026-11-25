@@ -1,0 +1,30 @@
+{
+  "type": "thewatcher:still_water",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "thewatcher:still_water",
+      "lakes": false,
+      "features": false,
+      "structure_overrides": [],
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        },
+        {
+          "block": "minecraft:stone",
+          "height": 54
+        },
+        {
+          "block": "minecraft:mud",
+          "height": 8
+        },
+        {
+          "block": "minecraft:water",
+          "height": 1
+        }
+      ]
+    }
+  }
+}

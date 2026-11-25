@@ -1,0 +1,21 @@
+{
+  "type": "thewatcher:hallways",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "thewatcher:hallways",
+      "lakes": false,
+      "features": false,
+      "structure_overrides": [],
+      "layers": [
+        { "block": "minecraft:bedrock", "height": 1 },
+        { "block": "minecraft:stone", "height": 9 },
+        { "block": "minecraft:yellow_terracotta", "height": 1 },
+        { "block": "minecraft:air", "height": 4 },
+        { "block": "minecraft:white_terracotta", "height": 1 },
+        { "block": "minecraft:stone", "height": 3 },
+        { "block": "minecraft:bedrock", "height": 1 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,103 @@
+plugins {
+    id 'fabric-loom' version '1.11-SNAPSHOT'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// ---------------------------------------------------------------------------------------------
+// Modrinth modpack (.mrpack)
+//
+//   ./gradlew mrpack   ->  build/distributions/The-Watcher-<version>.mrpack
+//
+// Import it in the Modrinth App with "+ Add instance" -> "From file" (or drag it into the app).
+// It creates a Minecraft 1.21.1 + Fabric instance with The Watcher and Fabric API installed.
+// Fabric API is referenced by its official Modrinth download (with checksums), not bundled.
+// ---------------------------------------------------------------------------------------------
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
+def mrpackIndexFile = layout.buildDirectory.file('mrpack/modrinth.index.json')
+
+tasks.register('mrpackIndex') {
+    group = 'distribution'
+    description = 'Writes modrinth.index.json (looks up Fabric API on Modrinth for its download URL and hashes).'
+    outputs.file(mrpackIndexFile)
+    outputs.upToDateWhen { false }
+    doLast {
+        def mc = project.minecraft_version
+        def fapi = project.fabric_version
+        def enc = { String s -> URLEncoder.encode(s, 'UTF-8') }
+        def apiUrl = project.findProperty('fabricApiVersionsUrl') ?:
+                "https://api.modrinth.com/v2/project/fabric-api/version?loaders=${enc('["fabric"]')}&game_versions=${enc("[\"${mc}\"]")}"
+        def conn = new URL(apiUrl).openConnection()
+        conn.setRequestProperty('User-Agent', "the-watcher/${project.mod_version} (mrpack build task)")
+        def versions = conn.inputStream.withCloseable { new JsonSlurper().parse(it) }
+        def v = versions.find { it.version_number == fapi }
+        if (v == null) throw new GradleException("Fabric API ${fapi} wasn't found on Modrinth for Minecraft ${mc}.")
+        def f = v.files.find { it.primary } ?: v.files[0]
+
+        def index = [
+                formatVersion: 1,
+                game         : 'minecraft',
+                versionId    : project.mod_version,
+                name         : 'The Watcher',
+                summary      : 'Something has been watching you since your first night. It is patient. It is getting closer.',
+                files        : [[
+                        path     : "mods/${f.filename}",
+                        hashes   : [sha1: f.hashes.sha1, sha512: f.hashes.sha512],
+                        env      : [client: 'required', server: 'required'],
+                        downloads: [f.url],
+                        fileSize : f.size
+                ]],
+                dependencies : [
+                        'minecraft'    : mc,
+                        'fabric-loader': project.loader_version
+                ]
+        ]
+        def out = mrpackIndexFile.get().asFile
+        out.parentFile.mkdirs()
+        out.text = JsonOutput.prettyPrint(JsonOutput.toJson(index))
+    }
+}
+
+tasks.register('mrpack', Zip) {
+    group = 'distribution'
+    description = 'Builds a Modrinth App modpack (.mrpack) containing The Watcher + Fabric API.'
+    dependsOn 'mrpackIndex', 'remapJar'
+    archiveFileName = "The-Watcher-${project.mod_version}.mrpack"
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(mrpackIndexFile)
+    from(tasks.named('remapJar').flatMap { it.archiveFile }) {
+        into 'overrides/mods'
+    }
+}
+
+tasks.named('build') { finalizedBy 'mrpack' }
